@@ -49,7 +49,7 @@ body {
     margin-bottom: 10px;
     padding: 10px 15px;
     border-radius: 20px;
-    max-width: 70%;
+    max-width: 100%;
     word-wrap: break-word;
     line-height: 1.4;
     clear: both;  /* Ensure each message starts on a new line */
