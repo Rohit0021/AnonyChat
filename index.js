@@ -59,7 +59,7 @@ io.on('connection', async (socket) => {
 
             // Remove old messages if more than 100 exist
             const messageCount = await Message.countDocuments();
-            if (messageCount > 100) {
+            if (messageCount > 25) {
                 // Remove the oldest message
                 const oldestMessage = await Message.findOne().sort({ createdAt: 1 });
                 if (oldestMessage) {

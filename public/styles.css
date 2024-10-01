@@ -15,7 +15,6 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 600px;
     height: 100vh;  /* Full viewport height for mobile */
     background-color: #fff;
     border-radius: 10px;
