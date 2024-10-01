@@ -1,0 +1,140 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;  /* Prevent overflow from body */
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;  /* Full viewport height for mobile */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Message list styling */
+#messages {
+    flex: 1;
+    padding: 10px 20px;
+    list-style: none;
+    overflow-y: scroll;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;  /* Stack messages vertically */
+}
+
+/* Ensure message list stays fully visible */
+#messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 4px;
+}
+
+#messages li {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 70%;
+    word-wrap: break-word;
+    line-height: 1.4;
+    clear: both;  /* Ensure each message starts on a new line */
+}
+
+/* Message styling for other users */
+.other-message {
+    background-color: #e5e7eb;
+    color: #333;
+    text-align: left;
+    float: left;  /* Align other messages to the left */
+}
+
+/* Message styling for user's own messages */
+.my-message {
+    background-color: #007bff;
+    color: #fff;
+    text-align: right;
+    float: right;  /* Align user's own messages to the right */
+}
+
+/* Input area styling */
+form {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #d1d1d1;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+input:focus {
+    border-color: #007bff;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Ensure the input box stays at the bottom even with virtual keyboard */
+@media (max-width: 600px) {
+    #chat-container {
+        height: 100vh;  /* Full height on mobile */
+    }
+
+    #messages {
+        padding: 10px;
+        flex: 1;  /* Ensure messages list grows */
+    }
+
+    form {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+        background-color: white;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}

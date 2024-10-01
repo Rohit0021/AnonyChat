@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="chat-container">
+        <ul id="messages"></ul>
+        <form id="chat-form">
+            <input id="m" autocomplete="off" placeholder="Type your message here..." /><button>Send</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('m');
+        const messagesList = document.getElementById('messages');
+
+        // Save a unique identifier for the user (e.g., a randomly generated ID or a username)
+        const userId = Math.random().toString(36).substring(7);  // Generate a random ID for this session
+
+        // Function to append a message to the chat
+        function appendMessage(message, isOwnMessage) {
+            const item = document.createElement('li');
+            item.textContent = message;
+
+            // If it's the user's own message, add a class for right alignment
+            if (isOwnMessage) {
+                item.classList.add('my-message');
+            } else {
+                item.classList.add('other-message');
+            }
+
+            messagesList.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Initial message loading from the server
+        socket.on('init', function(messages) {
+            messages.forEach(function(message) {
+                appendMessage(message.text, message.userId === userId);
+            });
+        });
+
+        // Listen for new messages from the server
+        socket.on('chat message', function(msg) {
+            appendMessage(msg.text, msg.userId === userId);
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const message = {
+                text: input.value,
+                userId: userId,  // Attach the user ID to the message
+            };
+
+            // Send the message to the server (but don't append it locally, wait for server to emit it back)
+            socket.emit('chat message', message);
+
+            // Clear the input field after sending the message
+            input.value = '';
+            return false;
+        });
+    </script>
+</body>
+</html>
